@@ -56,6 +56,15 @@ CONFIGURE_ARGS += \
 	--without-python \
 	--without-java
 
+define Build/InstallDev
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/lcm-gen $(1)/usr/bin/lcm-gen
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) -r $(PKG_INSTALL_DIR)/usr/lib/* $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/usr/include
+	$(CP) -r $(PKG_INSTALL_DIR)/usr/include/* $(1)/usr/include
+endef
+
 define Package/lcm/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/lcm-gen $(1)/usr/bin/lcm-gen
