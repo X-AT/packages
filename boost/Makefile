@@ -55,9 +55,21 @@ define Package/boost/Default/description
   Boost provides free peer-reviewed portable C++ source libraries
 endef
 
+define Package/boost-atomic
+  $(call Package/boost/Default)
+  TITLE+= (atomic)
+  DEPENDS+= +boost-system
+endef
+
 define Package/boost-chrono
   $(call Package/boost/Default)
   TITLE+= (chrono)
+  DEPENDS+= +boost-system
+endef
+
+define Package/boost-coroutine
+  $(call Package/boost/Default)
+  TITLE+= (coroutine)
   DEPENDS+= +boost-system
 endef
 
@@ -97,6 +109,11 @@ endef
 define Package/boost-locale
   $(call Package/boost/Default)
   TITLE+= (locale)
+endef
+
+define Package/boost-log
+  $(call Package/boost/Default)
+  TITLE+= (log)
 endef
 
 define Package/boost-math
@@ -195,9 +212,11 @@ define Build/Compile
 		bjam \
 			'-sBUILD=release <optimization>space <inlining>on <debug-symbols>off' \
 			--toolset=gcc-$(ARCH) --build-type=minimal --layout=system \
-			--disable-long-double \
+			--disable-long-double --abi=o32 \
 			$(CONFIGURE_ARGS) \
+			$(if $(CONFIG_PACKAGE_boost-atomic),,--without-atomic) \
 			$(if $(CONFIG_PACKAGE_boost-chrono),,--without-chrono) \
+			$(if $(CONFIG_PACKAGE_boost-coroutine),,--without-coroutine) \
 			$(if $(CONFIG_PACKAGE_boost-date_time),,--without-date_time) \
 			$(if $(CONFIG_PACKAGE_boost-exception),,--without-exception) \
 			$(if $(CONFIG_PACKAGE_boost-filesystem),,--without-filesystem) \
@@ -205,6 +224,7 @@ define Build/Compile
 			$(if $(CONFIG_PACKAGE_boost-graph_parallel),,--without-graph_parallel) \
 			$(if $(CONFIG_PACKAGE_boost-iostreams),,--without-iostreams) \
 			$(if $(CONFIG_PACKAGE_boost-locale),,--without-locale) \
+			$(if $(CONFIG_PACKAGE_boost-log),,--without-log) \
 			$(if $(CONFIG_PACKAGE_boost-math),,--without-math) \
 			$(if $(CONFIG_PACKAGE_boost-mpi),,--without-mpi) \
 			$(if $(CONFIG_PACKAGE_boost-program_options),,--without-program_options) \
@@ -264,8 +284,16 @@ define Package/boost/Default/install
 		$(1)/usr/lib/
 endef
 
+define Package/boost-atomic/install
+  $(call Package/boost/Default/install,$(1),atomic)
+endef
+
 define Package/boost-chrono/install
   $(call Package/boost/Default/install,$(1),chrono)
+endef
+
+define Package/boost-coroutine/install
+  $(call Package/boost/Default/install,$(1),coroutine)
 endef
 
 define Package/boost-date_time/install
@@ -290,6 +318,14 @@ endef
 
 define Package/boost-iostreams/install
   $(call Package/boost/Default/install,$(1),iostreams)
+endef
+
+define Package/boost-locale/install
+  $(call Package/boost/Default/install,$(1),locale)
+endef
+
+define Package/boost-log/install
+  $(call Package/boost/Default/install,$(1),log)
 endef
 
 define Package/boost-math/install
