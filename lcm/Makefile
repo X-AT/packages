@@ -20,9 +20,12 @@ PKG_LICENSE:=LGPL-2.1
 
 PKG_MAINTAINER:=Vladimir Ermakov <vooon341@gmail.com>
 
+HOST_BUILD_DEPENDS:=glib2/host
+#PKG_BUILD_DEPENDS:=lcm/host
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
+include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/lcm
@@ -41,16 +44,17 @@ define Package/lcm/description
   variety of programming languages.
 endef
 
+HOST_CONFIGURE_ARGS += \
+	--without-lua \
+	--without-python \
+	--without-java
+
 CONFIGURE_ARGS += \
 	--enable-shared \
 	--enable-static \
 	--without-lua \
 	--without-python \
 	--without-java
-
-define Build/Configure
-	$(call Build/Configure/Default)
-endef
 
 define Package/lcm/install
 	$(INSTALL_DIR) $(1)/usr/bin
@@ -61,4 +65,5 @@ define Package/lcm/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/*.so* $(1)/usr/lib
 endef
 
+$(eval $(call HostBuild))
 $(eval $(call BuildPackage,lcm))
