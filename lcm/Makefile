@@ -12,9 +12,9 @@ PKG_VERSION:=1.2.1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/lcm-proj/lcm.git
+PKG_SOURCE_URL:=https://github.com/vooon/lcm-vala.git
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=v$(PKG_VERSION)
+PKG_SOURCE_VERSION:=ca3b960d7b4c8c1e221c0dc1dbc26553c8594289
 
 PKG_LICENSE:=LGPL-2.1
 
@@ -31,7 +31,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/lcm
   SECTION:=libs
   CATEGORY:=Libraries
-  TITLE:=Lightweight Communications and Marshalling
+  TITLE:=Lightweight Communications and Marshalling (lcm-vala)
   URL:=http://lcm-proj.github.io/
   DEPENDS:=+glib2
 endef
@@ -42,19 +42,23 @@ define Package/lcm/description
   It provides a publish/subscribe message passing model and
   automatic marshalling/unmarshalling code generation with bindings for applications in a
   variety of programming languages.
+
+  Fork with Vala language support.
 endef
 
 HOST_CONFIGURE_ARGS += \
 	--without-lua \
 	--without-python \
-	--without-java
+	--without-java \
+	--with-vala
 
 CONFIGURE_ARGS += \
 	--enable-shared \
 	--enable-static \
 	--without-lua \
 	--without-python \
-	--without-java
+	--without-java \
+	--with-vala
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/bin
@@ -63,6 +67,8 @@ define Build/InstallDev
 	$(CP) -r $(PKG_INSTALL_DIR)/usr/lib/* $(1)/usr/lib
 	$(INSTALL_DIR) $(1)/usr/include
 	$(CP) -r $(PKG_INSTALL_DIR)/usr/include/* $(1)/usr/include
+	$(INSTALL_DIR) $(1)/usr/src
+	$(CP) -r $(PKG_INSTALL_DIR)/usr/src/* $(1)/usr/src
 endef
 
 define Package/lcm/install

@@ -21,6 +21,8 @@ PKG_LICENSE:=GPLv3
 
 PKG_MAINTAINER:=Vladimir Ermakov <vooon341@gmail.com>
 
+PKG_BUILD_DEPENDS:=vala/host lcm/host
+
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
@@ -28,7 +30,7 @@ define Package/xat-trakd
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=X-AT trakd tracking daemons
-  DEPENDS:=+lcm +gpsd +udev +glib2 +vala
+  DEPENDS:=+vala +lcm +mavlink +libgps +udev +glib2
 endef
 
 define Package/xat-trakd/description
