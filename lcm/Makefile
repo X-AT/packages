@@ -73,7 +73,7 @@ endef
 
 define Package/lcm/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/lcm-gen $(1)/usr/bin/lcm-gen
+	#$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/lcm-gen $(1)/usr/bin/lcm-gen
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/lcm-logger $(1)/usr/bin/lcm-logger
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/lcm-logplayer $(1)/usr/bin/lcm-logplayer
 	$(INSTALL_DIR) $(1)/usr/lib
