@@ -8,20 +8,22 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xat-trakd
-PKG_VERSION:=2015-02-17
+PKG_VERSION:=2015-02-18
 PKG_RELEASE:=$(PKG_SOURCE_VERSION)
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/X-AT/trakd.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=f02daabe5b9d9e90fb5352ce6777af20662c7399
+PKG_SOURCE_VERSION:=f583cd7f97332a578f10a2acce86385643e1375e
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.bz2
 
 PKG_LICENSE:=GPLv3
 
 PKG_MAINTAINER:=Vladimir Ermakov <vooon341@gmail.com>
 
-PKG_BUILD_DEPENDS:=vala/host lcm/host
+# XXX vala and mavlink actually don't need as runtime dep
+# but adding to that list dont work
+PKG_BUILD_DEPENDS:=vala/host lcm/host vala mavlink
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
