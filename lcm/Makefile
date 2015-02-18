@@ -50,19 +50,16 @@ HOST_CONFIGURE_ARGS += \
 	--without-lua \
 	--without-python \
 	--without-java \
-	--with-vala
+	--without-vala
 
 CONFIGURE_ARGS += \
 	--enable-shared \
-	--enable-static \
-	--without-lua \
 	--without-python \
 	--without-java \
+	--without-lua \
 	--with-vala
 
 define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/lcm-gen $(1)/usr/bin/lcm-gen
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) -r $(PKG_INSTALL_DIR)/usr/lib/* $(1)/usr/lib
 	$(INSTALL_DIR) $(1)/usr/include

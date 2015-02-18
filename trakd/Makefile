@@ -37,6 +37,9 @@ define Package/xat-trakd/description
   X-AT tracking daemons.
 endef
 
+CMAKE_OPTIONS = -DVALA_EXECUTABLE=$(STAGING_DIR_HOST)/bin/valac \
+		-DLCM_GEN=$(STAGING_DIR_HOST)/bin/lcm-gen
+
 #TARGET_CFLAGS += -ffunction-sections -fdata-sections
 #TARGET_LDFLAGS += -Wl,--gc-sections
 
