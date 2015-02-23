@@ -23,7 +23,7 @@ PKG_MAINTAINER:=Vladimir Ermakov <vooon341@gmail.com>
 
 # XXX vala and mavlink actually don't need as runtime dep
 # but adding to that list dont work
-PKG_BUILD_DEPENDS:=vala/host lcm/host vala mavlink
+PKG_BUILD_DEPENDS:=+vala +mavlink +vala/host +lcm/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -32,7 +32,7 @@ define Package/xat-trakd
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=X-AT trakd tracking daemons
-  DEPENDS:=+vala +lcm +mavlink +libgps +udev +glib2
+  DEPENDS:=+lcm +libgps +udev +glib2
 endef
 
 define Package/xat-trakd/description
