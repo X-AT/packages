@@ -14,7 +14,7 @@ PKG_RELEASE:=$(PKG_SOURCE_VERSION)
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/X-AT/trakd.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=18d19cff350f2496f4db141e3480730cabe1edd6
+PKG_SOURCE_VERSION:=d4ededd0d522257e56d31635bc3aa6e233b7dcb8
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.bz2
 
 PKG_LICENSE:=GPLv3
@@ -23,7 +23,7 @@ PKG_MAINTAINER:=Vladimir Ermakov <vooon341@gmail.com>
 
 # XXX vala and mavlink actually don't need as runtime dep
 # but adding to that list dont work
-PKG_BUILD_DEPENDS:=+vala +mavlink +vala/host +lcm/host
+PKG_BUILD_DEPENDS:=+vala +mavlink vala/host lcm/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -39,8 +39,10 @@ define Package/xat-trakd/description
   X-AT tracking daemons.
 endef
 
+# XXX: only for MIPS targets (such as ar71xx)
 CMAKE_OPTIONS = -DVALA_EXECUTABLE=$(STAGING_DIR_HOST)/bin/valac \
-		-DLCM_GEN=$(STAGING_DIR_HOST)/bin/lcm-gen
+		-DLCM_GEN=$(STAGING_DIR_HOST)/bin/lcm-gen \
+		-DBIG_ENDIAN:BOOL=ON
 
 #TARGET_CFLAGS += -ffunction-sections -fdata-sections
 #TARGET_LDFLAGS += -Wl,--gc-sections
